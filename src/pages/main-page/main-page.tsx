@@ -1,6 +1,9 @@
-import { CitiesList } from "../../components/cities-list/cities-list";
+import { CitiesCard } from "../../components/cities-card/cities-card";
 
-export function MainPage():JSX.Element {
+type MainPageProps = {
+  cityOffersCount: number;
+}
+export function MainPage({cityOffersCount}: MainPageProps):JSX.Element{
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -74,7 +77,7 @@ export function MainPage():JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{cityOffersCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -90,7 +93,13 @@ export function MainPage():JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <CitiesList/>
+              <div className="cities__places-list places__list tabs__content">
+                <CitiesCard/>
+                <CitiesCard/>
+                <CitiesCard/>
+                <CitiesCard/>
+                <CitiesCard/>
+              </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

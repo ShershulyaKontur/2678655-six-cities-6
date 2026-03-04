@@ -5,9 +5,10 @@ import { App } from './components/app/app';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const cityOffersCount: number = 5;
 
 root.render(
   <React.StrictMode>
-    <App/>
+    <App cityOffersCount={cityOffersCount}/>
   </React.StrictMode>
 );

@@ -1,7 +1,9 @@
 import { MainPage } from "../../pages/main-page/main-page";
 
-export function App():JSX.Element {
-  return (
-   <MainPage/>
-  );
+type AppProps = {
+  cityOffersCount: number;
+}
+
+export function App({ cityOffersCount }: AppProps): JSX.Element {
+  return <MainPage cityOffersCount={cityOffersCount} />;
 }
