@@ -3,6 +3,7 @@ import { CitiesCard } from '../../components/cities-card/cities-card';
 type MainPageProps = {
   cityOffersCount: number;
 }
+
 export function MainPage({cityOffersCount}:MainPageProps):JSX.Element{
   return(
     <div className="page page--gray page--main">
