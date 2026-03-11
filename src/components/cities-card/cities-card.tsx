@@ -1,8 +1,15 @@
 import { OfferProps } from "../../mocks/types";
 
-export function CitiesCard(offer: OfferProps):JSX.Element {
+type PlaceCardProps = {
+  offer: OfferProps;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}
+
+export function CitiesCard({offer, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={`${offer.city}`}/>
