@@ -8,7 +8,7 @@ type PlaceCardProps = {
   onMouseLeave: () => void;
 }
 
-export function OfferCard({offer, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
+export function CitiesCard({offer, onMouseEnter, onMouseLeave}: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__card place-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -32,7 +32,7 @@ export function OfferCard({offer, onMouseEnter, onMouseLeave}: PlaceCardProps): 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.round(offer.rating) * 100}%` }} />
+            <span style={{ width: `${(offer.rating / 5) * 100}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

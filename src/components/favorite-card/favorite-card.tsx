@@ -1,7 +1,7 @@
-import { OfferProps } from '../../mocks/types';
+import { Offer } from '../../mocks/types';
 
 type FavoriteCardProps = {
-  offer: OfferProps;
+  offer: Offer;
 }
 
 export function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {

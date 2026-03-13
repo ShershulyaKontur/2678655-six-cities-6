@@ -1,24 +1,41 @@
-export type LocationProps = {
+export type Location = {
   latitude: number,
   longitude: number,
   zoom: number
 }
-export type CityProps = {
+export type City = {
   name: string;
-  location: LocationProps;
+  location: Location;
 }
 
-export type OfferProps = {
-  id: string,
-  title: string,
-  type: 'hotel' | 'room' | 'apartment' | 'house';
-  price: number,
-  previewImage: string,
-  city: CityProps,
-  location: LocationProps,
-  isFavorite: boolean,
-  isPremium: boolean,
-  rating: number
-}
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
 
-export type Offers = OfferProps[];
+type Type = 'hotel' | 'room' | 'apartment' | 'house';
+
+type OfferBase = {
+  id: string;
+  title: string;
+  type: Type;
+  price: number;
+  city: City;
+  location: Location;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+};
+
+export type Offer = OfferBase & {
+  previewImage?: string;
+  description?: string;
+  bedrooms?: number;
+  goods?: string[];
+  host?: Host;
+  images?: string[];
+  maxAdults?: number;
+};
+
+export type Offers = Offer[];

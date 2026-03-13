@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OfferProps, Offers } from "../../mocks/types";
+import { Offers, Offer } from "../../mocks/types";
 import { OfferCard } from "../offer-card/offer-card";
 import { FavoriteCard } from "../favorite-card/favorite-card";
 
@@ -9,7 +9,7 @@ type OfferListProps = {
 };
 
 export function OffersList({offers, type = 'cities'}: OfferListProps): JSX.Element {
-  const [chosenId, setChosenId] = useState<OfferProps['id'] | null>(null);
+  const [chosenId, setChosenId] = useState<Offer['id'] | null>(null);
   const className = (type === 'cities') ?
   'cities__places-list places__list tabs__content' : 'favorites__places';
 

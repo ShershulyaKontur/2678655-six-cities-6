@@ -3,7 +3,7 @@ import { OffersList } from "../../components/offers-list/offers-list";
 import { Offers } from "../../mocks/types";
 
 type FavoritesPageProps = {
-  offers: Offers
+  offers: Offers;
 }
 
 export function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {

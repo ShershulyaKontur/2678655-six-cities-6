@@ -10,7 +10,7 @@ import { Offers } from '../../mocks/types';
 
 type AppProps = {
   cityOffersCount: number;
-  offers: Offers
+  offers: Offers,
 }
 
 export function App({ cityOffersCount, offers }: AppProps): JSX.Element {
@@ -35,7 +35,7 @@ export function App({ cityOffersCount, offers }: AppProps): JSX.Element {
         />
         <Route
           path={`${AppRoute.Offer}/:offerId`}
-          element={<OfferPage />}
+          element={<OfferPage offers = {offers} />}
         />
         <Route
           path={AppRoute.Error}
