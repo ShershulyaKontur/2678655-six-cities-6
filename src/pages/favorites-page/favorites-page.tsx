@@ -27,11 +27,7 @@ export function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
                         </a>
                       </div>
                     </div>
-
-                    <OffersList
-                      offers={currentCityOffers}
-                      type="favorites"
-                    />
+                    <OffersList offers={currentCityOffers} type="favorites" />
                   </li>
                 );
               })}

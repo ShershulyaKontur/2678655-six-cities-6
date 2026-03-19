@@ -5,7 +5,7 @@ import { FavoriteCard } from '../favorite-card/favorite-card';
 type OfferListProps = {
   offers: Offers;
   type?: 'cities' | 'favorites';
-  setChosenId: (id: Offer['id'] | null) => void;
+  setChosenId?: (id: Offer['id'] | null) => void;
 };
 
 export function OffersList({ offers, type = 'cities', setChosenId }: OfferListProps): JSX.Element {
@@ -21,8 +21,8 @@ export function OffersList({ offers, type = 'cities', setChosenId }: OfferListPr
           <OfferCard
             key={offer.id}
             offer={offer}
-            onMouseEnter={() => setChosenId(offer.id)}
-            onMouseLeave={() => setChosenId(null)}
+            onMouseEnter={() => setChosenId?.(offer.id)}
+            onMouseLeave={() => setChosenId?.(null)}
           />
         ) : (
           <FavoriteCard key={offer.id} offer={offer} />
