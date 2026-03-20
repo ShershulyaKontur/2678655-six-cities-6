@@ -11,17 +11,14 @@ type MapProps = {
   chosenId: Offer['id'] | null;
 };
 
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+const createIcon = (iconUrl: string) => new Icon({
+  iconUrl,
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
 
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
+const defaultCustomIcon = createIcon(URL_MARKER_DEFAULT);
+const currentCustomIcon = createIcon(URL_MARKER_CURRENT);
 
 export function Map({city, offers, chosenId}: MapProps): JSX.Element {
   const mapRef = useRef(null);
