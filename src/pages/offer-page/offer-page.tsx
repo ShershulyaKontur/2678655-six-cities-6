@@ -1,14 +1,23 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { Offers } from '../../mocks/types';
+import { Offer, Offers } from '../../mocks/types';
 import { AppRoute } from '../../const/const';
 import { ReviewForm } from '../../components/review-form/review-form';
+import { ReviewsList } from '../../components/reviews-list/reviews-list';
+import { Heading } from '../../ui/heading/heading';
+import { mockReviewsList } from '../../mocks/mockReviewsList';
+import { mockOffersNearbyList } from '../../mocks/mockOffersNearbyList';
+import { Map } from '../../components/map/map';
+import { useState } from 'react';
+import { OffersList } from '../../components/offers-list/offers-list';
+import { getRatingWidth } from '../../utils/getRatingWidth';
 
 type OfferPageProps = {
   offers: Offers;
 };
 
 export function OfferPage({ offers }: OfferPageProps): JSX.Element {
-  const { offerId } = useParams();
+  const {offerId} = useParams();
+  const [chosenId, setChosenId] = useState<Offer['id'] | null>(null);
   const currentOffer = offers.find((offer) => offer.id === offerId);
 
   if (!currentOffer) {
@@ -38,7 +47,7 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
               )}
 
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{currentOffer.title}</h1>
+                <Heading className="offer__name">{currentOffer.title}</Heading>
                 <button
                   className={`offer__bookmark-button button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''}`}
                   type="button"
@@ -54,7 +63,7 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
 
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${currentOffer.rating * 20}%` }} />
+                  <span style={{ width: getRatingWidth(currentOffer.rating) }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
@@ -76,7 +85,7 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
 
               <div className="offer__inside">
-                <h2 className="offer__inside-title">What`s inside</h2>
+                <Heading tag="h2" className="offer__inside-title">What`s inside</Heading>
                 <ul className="offer__inside-list">
                   {currentOffer.goods?.map((good) => (
                     <li key={good} className="offer__inside-item">
@@ -87,7 +96,7 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
 
               <div className="offer__host">
-                <h2 className="offer__host-title">Meet the host</h2>
+                <Heading tag="h2" className="offer__host-title">Meet the host</Heading>
                 <div className="offer__host-user user">
                   <div className={`offer__avatar-wrapper user__avatar-wrapper ${currentOffer.host?.isPro ? 'offer__avatar-wrapper--pro' : ''}`}>
                     <img
@@ -101,7 +110,6 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
                   <span className="offer__user-name">{currentOffer.host?.name}</span>
                   {currentOffer.host?.isPro && <span className="offer__user-status">Pro</span>}
                 </div>
-
                 <div className="offer__description">
                   {currentOffer.description?.split('\n').map((paragraph) => (
                     <p key={paragraph} className="offer__text">
@@ -112,86 +120,21 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
               </div>
 
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
-                </h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{ width: '80%' }} />
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">
-                        April 2019
-                      </time>
-                    </div>
-                  </li>
-                </ul>
+                <Heading tag="h2" className="reviews__title">
+                  Reviews · <span className="reviews__amount">{mockReviewsList.length}</span>
+                </Heading>
+                <ReviewsList reviews={mockReviewsList}/>
                 <ReviewForm />
               </section>
             </div>
           </div>
-
-          <section className="offer__map map" />
+          <Map variant='offer' chosenId={chosenId} offers={mockOffersNearbyList} city={mockOffersNearbyList[0].city}/>
         </section>
 
         <div className="container">
           <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              <article className="near-places__card place-card">
-                <div className="place-card__mark">
-                  <span>Premium</span>
-                </div>
-                <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
-                    <img
-                      className="place-card__image"
-                      src="../../../markup/img/apartment-03.jpg"
-                      width={260}
-                      height={200}
-                      alt="Place image"
-                    />
-                  </a>
-                </div>
-                <div className="place-card__info">
-                  <div className="place-card__price-wrapper">
-                    <div className="place-card__price">
-                      <b className="place-card__price-value">€180</b>
-                      <span className="place-card__price-text">/ night</span>
-                    </div>
-                    <button className="place-card__bookmark-button button" type="button">
-                      <svg className="place-card__bookmark-icon" width={18} height={19}>
-                        <use xlinkHref="#icon-bookmark" />
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
-                  </div>
-                  <div className="place-card__rating rating">
-                    <div className="place-card__stars rating__stars">
-                      <span style={{ width: '100%' }} />
-                      <span className="visually-hidden">Rating</span>
-                    </div>
-                  </div>
-                  <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
-                  </h2>
-                  <p className="place-card__type">Apartment</p>
-                </div>
-              </article>
-            </div>
+            <Heading tag="h2" className="near-places__title">Other places in the neighbourhood</Heading>
+            <OffersList variant='nearPlaces' offers={mockOffersNearbyList} setChosenId={setChosenId} />
           </section>
         </div>
       </main>

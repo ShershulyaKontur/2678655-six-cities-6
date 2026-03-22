@@ -1,4 +1,9 @@
+import { generatePath, Link } from 'react-router-dom';
 import { Offer } from '../../mocks/types';
+import { Heading } from '../../ui/heading/heading';
+import { AppRoute } from '../../const/const';
+import { getRatingWidth } from '../../utils/getRatingWidth';
+import cn from 'classnames';
 
 type FavoriteCardProps = {
   offer: Offer;
@@ -15,7 +20,7 @@ export function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {
           </div>
         )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={generatePath(AppRoute.Offer, { offerId: offer.id })}>
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -23,7 +28,7 @@ export function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {
             height="110"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -32,13 +37,8 @@ export function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={
-              `place-card__bookmark-button ${
-                offer.isFavorite
-                  ? 'place-card__bookmark-button--active button'
-                  : 'button'
-              }`
-            }
+            className={cn('place-card__bookmark-button', 'button',
+              {'place-card__bookmark-button--active': offer.isFavorite})}
             type="button"
           >
             <svg className="place-card__bookmark-icon"
@@ -54,13 +54,15 @@ export function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${Math.round(offer.rating) * 20}%`}}></span>
+            <span style={{ width: getRatingWidth(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
-        </h2>
+        <Heading tag='h2' className="place-card__name">
+          <Link to={generatePath(AppRoute.Offer, { offerId: offer.id })}>
+            {offer.title}
+          </Link>
+        </Heading>
         <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
