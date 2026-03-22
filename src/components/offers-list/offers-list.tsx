@@ -1,32 +1,48 @@
-import { Offer, Offers } from '../../mocks/types';
+import { Offer, Offers, OfferNearbyList } from '../../mocks/types';
 import { OfferCard } from '../offer-card/offer-card';
 import { FavoriteCard } from '../favorite-card/favorite-card';
 
-type OfferListProps = {
-  offers: Offers;
-  type?: 'cities' | 'favorites';
-  setChosenId?: (id: Offer['id'] | null) => void;
+type OffersListProps = {
+  offers: Offers | OfferNearbyList;
+  variant?: 'cities' | 'favorites' | 'nearPlaces';
+  setChosenId?: (id: string | null) => void;
 };
 
-export function OffersList({ offers, type = 'cities', setChosenId }: OfferListProps): JSX.Element {
+export function OffersList({
+  offers,
+  variant = 'cities',
+  setChosenId
+}: OffersListProps): JSX.Element {
 
-  const className = type === 'cities'
-    ? 'cities__places-list places__list tabs__content'
-    : 'favorites__places';
+  const containerClassName = {
+    cities: 'cities__places-list places__list tabs__content',
+    favorites: 'favorites__places',
+    nearPlaces: 'near-places__list places__list'
+  }[variant];
+
+  if (variant === 'favorites') {
+    return (
+      <div className={containerClassName}>
+        {offers.map((offer) => (
+          <FavoriteCard
+            key={offer.id}
+            offer={offer as Offer}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className={className}>
+    <div className={containerClassName}>
       {offers.map((offer) => (
-        type === 'cities' ? (
-          <OfferCard
-            key={offer.id}
-            offer={offer}
-            onMouseEnter={() => setChosenId?.(offer.id)}
-            onMouseLeave={() => setChosenId?.(null)}
-          />
-        ) : (
-          <FavoriteCard key={offer.id} offer={offer} />
-        )
+        <OfferCard
+          key={offer.id}
+          offer={offer}
+          variant={variant === 'cities' ? 'cities' : 'near-places'}
+          onMouseEnter={() => setChosenId?.(offer.id)}
+          onMouseLeave={() => setChosenId?.(null)}
+        />
       ))}
     </div>
   );

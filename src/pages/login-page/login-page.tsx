@@ -1,10 +1,12 @@
+import { Heading } from '../../ui/heading/heading';
+
 export function LoginPage(): JSX.Element{
   return(
     <div className="page page--gray page--login">
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <h1 className="login__title">Sign in</h1>
+            <Heading className="login__title">Sign in</Heading>
             <form className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>

@@ -1,15 +1,14 @@
+import { Heading } from '../../ui/heading/heading';
+
 export function NotFoundPage(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden">404 Not Found</h1>
+        <Heading className="visually-hidden">404 Not Found</Heading>
         <div className="cities">
           <div
             className="container"
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-            }}
+            style={{display: 'flex',justifyContent: 'center'}}
           >
             <section className="cities__places places">
               <div className="cities__status-wrapper">

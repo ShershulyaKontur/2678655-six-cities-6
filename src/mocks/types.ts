@@ -25,7 +25,21 @@ export type Offer = OfferBase & {
   maxAdults?: number;
 };
 
+export type OfferNearby = OfferBase & {previewImage: string};
+
 export type Offers = Offer[];
+
+export type OfferNearbyList = OfferNearby[];
+
+export type Review = {
+  id: string;
+  date: string;
+  user: Host;
+  comment: string;
+  rating: number;
+}
+
+export type Reviews = Review[];
 
 type Type = 'hotel' | 'room' | 'apartment' | 'house';
 
@@ -40,3 +54,5 @@ type OfferBase = {
   isPremium: boolean;
   rating: number;
 };
+
+

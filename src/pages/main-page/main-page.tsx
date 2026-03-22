@@ -3,6 +3,7 @@ import { Map } from '../../components/map/map';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { Offer, Offers } from '../../mocks/types';
 import { LocationsList } from '../../ui/locations-list/locations-list';
+import { Heading } from '../../ui/heading/heading';
 
 type MainPageProps = {
   cityOffersCount: number;
@@ -15,7 +16,7 @@ export function MainPage({offers, cityOffersCount}: MainPageProps): JSX.Element{
   return(
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
+        <Heading className="visually-hidden">Cities</Heading>
         <div className="tabs">
           <section className="locations container">
             <LocationsList/>
@@ -24,7 +25,7 @@ export function MainPage({offers, cityOffersCount}: MainPageProps): JSX.Element{
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
+              <Heading tag='h2' className="visually-hidden">Places</Heading>
               <b className="places__found">{cityOffersCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
@@ -44,7 +45,7 @@ export function MainPage({offers, cityOffersCount}: MainPageProps): JSX.Element{
               <OffersList offers={offers} setChosenId={setChosenId} />
             </section>
             <div className="cities__right-section">
-              <Map chosenId={chosenId} offers={offers} city={offers[0].city}/>
+              <Map variant='cities' chosenId={chosenId} offers={offers} city={offers[0].city}/>
             </div>
           </div>
         </div>

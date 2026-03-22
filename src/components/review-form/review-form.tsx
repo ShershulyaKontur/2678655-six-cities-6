@@ -6,7 +6,7 @@ type FormData = {
 };
 
 
-export function ReviewForm() {
+export function ReviewForm(): JSX.Element {
   const [formData, setFormData] = useState<FormData>({rating: 0, review: ''});
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
