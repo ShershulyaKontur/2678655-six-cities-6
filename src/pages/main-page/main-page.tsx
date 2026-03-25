@@ -14,6 +14,7 @@ export function MainPage(): JSX.Element{
   const currentCity = useSelector(getCity);
   const offers = useSelector(getOffers);
   const offersByCity = offers.filter((offer)=> offer.city.name === currentCity);
+  const cityOffersCount = offersByCity.length;
   const currentCityCoordinates = offersByCity[0]?.city;
 
   return(
@@ -30,9 +31,9 @@ export function MainPage(): JSX.Element{
             <section className="cities__places places">
               <Heading tag='h2' className="visually-hidden">Places</Heading>
               <b className="places__found">
-                {offersByCity.length > 0 ? `${offersByCity.length} places  to stay in Amsterdam` : 'NET OTELEY BRO'}
+                {cityOffersCount > 0 ? `${cityOffersCount} places  to stay in Amsterdam` : 'NET OTELEY BRO'}
               </b>
-              {offersByCity.length > 0 && <Sorting />}
+              {cityOffersCount > 0 && <Sorting />}
               <OffersList offers={offersByCity} setChosenId={setChosenId} />
             </section>
             <div className="cities__right-section">
