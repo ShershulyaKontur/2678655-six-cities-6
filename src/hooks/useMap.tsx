@@ -35,6 +35,13 @@ export function useMap(
     }
   }, [mapRef, city]);
 
+  useEffect(() => {
+    if (map && city) {
+      const { latitude, longitude, zoom } = city.location;
+      map.setView([latitude, longitude], zoom);
+    }
+  }, [map, city]);
+
   return map;
 }
 

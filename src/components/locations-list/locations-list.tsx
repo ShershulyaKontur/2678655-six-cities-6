@@ -1,23 +1,13 @@
-import cn from 'classnames';
 import { useAppDispatch } from '../../hooks';
 import { setCity } from '../../store/action';
+import cn from 'classnames';
 
-type Location = {
-  name: string;
-  isActive?: boolean;
-};
 type LocationsListProps = {
   city: string;
 };
 
-const DEFAULT_LOCATIONS: Location[] = [
-  { name: 'Paris' },
-  { name: 'Cologne' },
-  { name: 'Brussels' },
-  { name: 'Amsterdam' },
-  { name: 'Hamburg' },
-  { name: 'Dusseldorf' },
-];
+const DEFAULT_LOCATIONS: string[] =
+['Paris', 'Cologne', 'Brussels','Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export function LocationsList({city}: LocationsListProps): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,18 +22,18 @@ export function LocationsList({city}: LocationsListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
       {DEFAULT_LOCATIONS.map((location) => (
-        <li key={location.name} className="locations__item">
+        <li key={location} className="locations__item">
           <a
             href="#"
             onClick={(evt) => {
               evt.preventDefault();
-              handleCityClick(location.name);
+              handleCityClick(location);
             }}
             className={cn('locations__item-link', 'tabs__item', {
-              'tabs__item--active': location.name === city,
+              'tabs__item--active': location === city,
             })}
           >
-            <span>{location.name}</span>
+            <span>{location}</span>
           </a>
         </li>
       ))}

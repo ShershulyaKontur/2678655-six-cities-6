@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Map } from '../../components/map/map';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { Offer } from '../../mocks/types';
-import { LocationsList } from '../../ui/locations-list/locations-list';
+import { LocationsList } from '../../components/locations-list/locations-list';
 import { Heading } from '../../ui/heading/heading';
 import { useSelector } from 'react-redux';
 import { getCity, getOffers } from '../../store/selectors';
@@ -29,8 +29,10 @@ export function MainPage(): JSX.Element{
           <div className="cities__places-container container">
             <section className="cities__places places">
               <Heading tag='h2' className="visually-hidden">Places</Heading>
-              <b className="places__found">{offersByCity.length} places to stay in Amsterdam</b>
-              <Sorting />
+              <b className="places__found">
+                {offersByCity.length > 0 ? `${offersByCity.length} places  to stay in Amsterdam` : 'NET OTELEY BRO'}
+              </b>
+              {offersByCity.length > 0 && <Sorting />}
               <OffersList offers={offersByCity} setChosenId={setChosenId} />
             </section>
             <div className="cities__right-section">

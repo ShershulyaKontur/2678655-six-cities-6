@@ -1,6 +1,5 @@
 import cn from 'classnames';
-
-export type SortType = 'popular' | 'priceLowToHigh' | 'priceHighToLow' | 'topRated';
+import { SortType } from './types';
 
 const SORT_OPTIONS: { type: SortType; label: string }[] = [
   { type: 'popular', label: 'Popular' },
@@ -19,13 +18,11 @@ export function Sorting(): JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
+      <ul className="places__options places__options--custom">
         {SORT_OPTIONS.map(({ type, label }) => (
           <li
             key={type}
-            className={cn('places__option',
-              'places__option--active'
-            )}
+            className={cn('places__option', 'places__option--active')}
             tabIndex={0}
           >
             {label}
