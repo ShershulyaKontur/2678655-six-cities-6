@@ -2,7 +2,7 @@ type InsideListProps = {
   goods: string[] | undefined;
 };
 
-function InsideList({goods}: InsideListProps): JSX.Element {
+export function InsideList({goods}: InsideListProps): JSX.Element {
   return (
     <ul className="offer__inside-list">
       {goods?.map((good) => (
@@ -13,5 +13,3 @@ function InsideList({goods}: InsideListProps): JSX.Element {
     </ul>
   );
 }
-
-export default InsideList;

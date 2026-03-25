@@ -4,21 +4,17 @@ import { Heading } from '../../ui/heading/heading';
 import { AppRoute } from '../../const/const';
 import { getRatingWidth } from '../../utils/getRatingWidth';
 import cn from 'classnames';
+import { StatusMark } from '../../ui/status-mark/status-mark';
 
 type FavoriteCardProps = {
   offer: Offer;
 }
 
 export function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {
-
   return (
     <article className="favorites__card place-card">
-      {offer.isPremium &&
-        (
-          <div className="place-card__mark">
-            <span>Premium</span>
-          </div>
-        )}
+      {offer.isPremium && <StatusMark variant='place-card' isPremium/>}
+
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={generatePath(AppRoute.Offer, { offerId: offer.id })}>
           <img

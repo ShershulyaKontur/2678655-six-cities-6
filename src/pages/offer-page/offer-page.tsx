@@ -13,9 +13,9 @@ import { getRatingWidth } from '../../utils/getRatingWidth';
 import { useSelector } from 'react-redux';
 import { getOffers } from '../../store/selectors';
 import { OfferGalary } from '../../ui/offer-galllery/offer-gallery';
+import { StatusMark } from '../../ui/status-mark/status-mark';
+import { InsideList } from '../../ui/inside-list/inside-list';
 import cn from 'classnames';
-import { OfferMark } from '../../ui/offer-mark/offer-mark';
-import InsideList from '../../ui/inside-list/inside-list';
 
 
 export function OfferPage(): JSX.Element {
@@ -38,7 +38,7 @@ export function OfferPage(): JSX.Element {
 
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {currentOffer.isPremium && (<OfferMark/>)}
+              {currentOffer.isPremium && (<StatusMark isPremium/>)}
               <div className="offer__name-wrapper">
                 <Heading className="offer__name">{currentOffer.title}</Heading>
                 <button
@@ -87,7 +87,9 @@ export function OfferPage(): JSX.Element {
               <div className="offer__host">
                 <Heading tag="h2" className="offer__host-title">Meet the host</Heading>
                 <div className="offer__host-user user">
-                  <div className={`offer__avatar-wrapper user__avatar-wrapper ${currentOffer.host?.isPro ? 'offer__avatar-wrapper--pro' : ''}`}>
+                  <div className={cn('offer__avatar-wrapper user__avatar-wrapper', {
+                    'offer__avatar-wrapper--pro' :currentOffer.host?.isPro
+                    })} >
                     <img
                       className="offer__avatar user__avatar"
                       src={currentOffer.host?.avatarUrl}
@@ -97,14 +99,10 @@ export function OfferPage(): JSX.Element {
                     />
                   </div>
                   <span className="offer__user-name">{currentOffer.host?.name}</span>
-                  {currentOffer.host?.isPro && <span className="offer__user-status">Pro</span>}
+                  {currentOffer.host?.isPro && <StatusMark isPro/>}
                 </div>
                 <div className="offer__description">
-                  {currentOffer.description?.split('\n').map((paragraph) => (
-                    <p key={paragraph} className="offer__text">
-                      {paragraph}
-                    </p>
-                  ))}
+                  <p className="offer__text">{currentOffer.description}</p>
                 </div>
               </div>
 
