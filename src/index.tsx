@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './components/app/app';
 import { mockOffersList } from './mocks/mockOffersList';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const cityOffersCount: number = mockOffersList.length;
 
@@ -11,9 +13,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      offers={mockOffersList}
-      cityOffersCount={cityOffersCount}
-    />
+    <Provider store={store}>
+      <App
+        offers={mockOffersList}
+        cityOffersCount={cityOffersCount}
+      />
+    </Provider>
   </React.StrictMode>
 );
