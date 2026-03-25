@@ -12,6 +12,9 @@ import { OffersList } from '../../components/offers-list/offers-list';
 import { getRatingWidth } from '../../utils/getRatingWidth';
 import { useSelector } from 'react-redux';
 import { getOffers } from '../../store/selectors';
+import { OfferGalary } from '../../ui/offer-galllery/offer-gallery';
+import cn from 'classnames';
+import { OfferMark } from '../../ui/offer-mark/offer-mark';
 
 
 export function OfferPage(): JSX.Element {
@@ -29,27 +32,18 @@ export function OfferPage(): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              {currentOffer.images?.map((image) => (
-                <div key={image} className="offer__image-wrapper">
-                  <img className="offer__image" src={image} alt={currentOffer.title} />
-                </div>
-              ))}
-            </div>
+            <OfferGalary offers={currentOffer}/>
           </div>
 
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {currentOffer.isPremium && (
-                <div className="offer__mark">
-                  <span>Premium</span>
-                </div>
-              )}
-
+              {currentOffer.isPremium && (<OfferMark/>)}
               <div className="offer__name-wrapper">
                 <Heading className="offer__name">{currentOffer.title}</Heading>
                 <button
-                  className={`offer__bookmark-button button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''}`}
+                  className={cn('offer__bookmark-button button',
+                    {'offer__bookmark-button--active' : currentOffer.isFavorite}
+                  )}
                   type="button"
                 >
                   <svg className="offer__bookmark-icon" width="31" height="33">
