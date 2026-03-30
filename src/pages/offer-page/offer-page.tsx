@@ -15,9 +15,9 @@ import { getOffers } from '../../store/selectors';
 import { OfferGalary } from '../../ui/offer-galllery/offer-gallery';
 import { StatusMark } from '../../ui/status-mark/status-mark';
 import { InsideList } from '../../ui/inside-list/inside-list';
-import cn from 'classnames';
 import { Button } from '../../ui/button/button';
 import { OfferFeatures } from '../../ui/offer-features/offer-features';
+import cn from 'classnames';
 
 
 export function OfferPage(): JSX.Element {
