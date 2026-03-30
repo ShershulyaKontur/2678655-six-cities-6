@@ -1,13 +1,12 @@
+import { useSelector } from 'react-redux';
 import { OffersList } from '../../components/offers-list/offers-list';
-import { Offers } from '../../mocks/types';
+import { getOffers } from '../../store/selectors';
 import { Footer } from '../../ui/footer/footer';
 import { Heading } from '../../ui/heading/heading';
 
-type FavoritesPageProps = {
-  offers: Offers;
-}
 
-export function FavoritesPage({offers}: FavoritesPageProps): JSX.Element {
+export function FavoritesPage(): JSX.Element {
+  const offers = useSelector(getOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (

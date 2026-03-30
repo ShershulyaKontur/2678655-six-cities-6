@@ -3,6 +3,7 @@ import { Offer, OfferNearby } from '../../mocks/types';
 import { AppRoute } from '../../const/const';
 import { Heading } from '../../ui/heading/heading';
 import { getRatingWidth } from '../../utils/getRatingWidth';
+import { StatusMark } from '../../ui/status-mark/status-mark';
 import cn from 'classnames';
 
 type OfferCardProps = {
@@ -34,11 +35,7 @@ export function OfferCard({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {isPremium && (
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-      )}
+      {isPremium && <StatusMark variant='place-card' isPremium/>}
 
       <div className={imageWrapperClassName}>
         <Link to={generatePath(AppRoute.Offer, { offerId: id })}>

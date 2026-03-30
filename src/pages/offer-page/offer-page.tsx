@@ -1,5 +1,5 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { Offer, Offers } from '../../mocks/types';
+import { Offer } from '../../mocks/types';
 import { AppRoute } from '../../const/const';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
@@ -10,14 +10,18 @@ import { Map } from '../../components/map/map';
 import { useState } from 'react';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { getRatingWidth } from '../../utils/getRatingWidth';
+import { useSelector } from 'react-redux';
+import { getOffers } from '../../store/selectors';
+import { OfferGalary } from '../../ui/offer-galllery/offer-gallery';
+import { StatusMark } from '../../ui/status-mark/status-mark';
+import { InsideList } from '../../ui/inside-list/inside-list';
+import cn from 'classnames';
 
-type OfferPageProps = {
-  offers: Offers;
-};
 
-export function OfferPage({ offers }: OfferPageProps): JSX.Element {
+export function OfferPage(): JSX.Element {
   const {offerId} = useParams();
   const [chosenId, setChosenId] = useState<Offer['id'] | null>(null);
+  const offers = useSelector(getOffers);
   const currentOffer = offers.find((offer) => offer.id === offerId);
 
   if (!currentOffer) {
@@ -29,27 +33,18 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              {currentOffer.images?.map((image) => (
-                <div key={image} className="offer__image-wrapper">
-                  <img className="offer__image" src={image} alt={currentOffer.title} />
-                </div>
-              ))}
-            </div>
+            <OfferGalary offers={currentOffer}/>
           </div>
 
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {currentOffer.isPremium && (
-                <div className="offer__mark">
-                  <span>Premium</span>
-                </div>
-              )}
-
+              {currentOffer.isPremium && (<StatusMark isPremium/>)}
               <div className="offer__name-wrapper">
                 <Heading className="offer__name">{currentOffer.title}</Heading>
                 <button
-                  className={`offer__bookmark-button button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''}`}
+                  className={cn('offer__bookmark-button button',
+                    {'offer__bookmark-button--active' : currentOffer.isFavorite}
+                  )}
                   type="button"
                 >
                   <svg className="offer__bookmark-icon" width="31" height="33">
@@ -86,19 +81,17 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
 
               <div className="offer__inside">
                 <Heading tag="h2" className="offer__inside-title">What`s inside</Heading>
-                <ul className="offer__inside-list">
-                  {currentOffer.goods?.map((good) => (
-                    <li key={good} className="offer__inside-item">
-                      {good}
-                    </li>
-                  ))}
-                </ul>
+                <InsideList goods={currentOffer.goods}/>
               </div>
 
               <div className="offer__host">
                 <Heading tag="h2" className="offer__host-title">Meet the host</Heading>
                 <div className="offer__host-user user">
-                  <div className={`offer__avatar-wrapper user__avatar-wrapper ${currentOffer.host?.isPro ? 'offer__avatar-wrapper--pro' : ''}`}>
+                  <div
+                    className={cn('offer__avatar-wrapper user__avatar-wrapper', {
+                      'offer__avatar-wrapper--pro':currentOffer.host?.isPro
+                    })}
+                  >
                     <img
                       className="offer__avatar user__avatar"
                       src={currentOffer.host?.avatarUrl}
@@ -108,14 +101,10 @@ export function OfferPage({ offers }: OfferPageProps): JSX.Element {
                     />
                   </div>
                   <span className="offer__user-name">{currentOffer.host?.name}</span>
-                  {currentOffer.host?.isPro && <span className="offer__user-status">Pro</span>}
+                  {currentOffer.host?.isPro && <StatusMark isPro/>}
                 </div>
                 <div className="offer__description">
-                  {currentOffer.description?.split('\n').map((paragraph) => (
-                    <p key={paragraph} className="offer__text">
-                      {paragraph}
-                    </p>
-                  ))}
+                  <p className="offer__text">{currentOffer.description}</p>
                 </div>
               </div>
 
