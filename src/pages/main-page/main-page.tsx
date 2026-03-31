@@ -4,21 +4,27 @@ import { OffersList } from '../../components/offers-list/offers-list';
 import { Offer } from '../../mocks/types';
 import { LocationsList } from '../../components/locations-list/locations-list';
 import { Heading } from '../../ui/heading/heading';
-import { useSelector } from 'react-redux';
-import { getCity, getOffers, getSortType } from '../../store/selectors';
+import { getCity, getLoadingStatus, getOffers, getSortType } from '../../store/selectors';
 import { Sorting } from '../../components/sorting/sorting';
 import { sortOffers } from '../../utils/sort-offers';
+import { useAppSelector } from '../../hooks';
+import { Spinner } from '../../ui/spinner/spinner';
 
 export function MainPage(): JSX.Element {
   const [chosenId, setChosenId] = useState<Offer['id'] | null>(null);
-  const currentCity = useSelector(getCity);
-  const sortType = useSelector(getSortType);
-  const offers = useSelector(getOffers);
+  const currentCity = useAppSelector(getCity);
+  const sortType = useAppSelector(getSortType);
+  const offers = useAppSelector(getOffers);
+  const isLoading = useAppSelector(getLoadingStatus);
 
   const offersByCity = offers.filter((offer) => offer.city.name === currentCity);
   const cityOffersCount = offersByCity.length;
-  const currentCityCoordinates = offersByCity[0]?.city;
+  const currentCityCoordinates = offersByCity[0]?.city || null;
   const sortedOffers = sortOffers(offersByCity, sortType);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -42,12 +48,13 @@ export function MainPage(): JSX.Element {
               <OffersList offers={sortedOffers} setChosenId={setChosenId} />
             </section>
             <div className="cities__right-section">
-              <Map
-                variant='cities'
-                chosenId={chosenId}
-                offers={offersByCity}
-                city={currentCityCoordinates}
-              />
+              {currentCityCoordinates &&
+                <Map
+                  variant='cities'
+                  chosenId={chosenId}
+                  offers={offersByCity}
+                  city={currentCityCoordinates}
+                />}
             </div>
           </div>
         </div>

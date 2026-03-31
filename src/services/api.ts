@@ -6,7 +6,7 @@ const TIMEOUT = 5000;
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL:URL,
-    timeout:TIMEOUT
+    timeout:TIMEOUT,
   });
-  return api
-}
+  return api;
+};
