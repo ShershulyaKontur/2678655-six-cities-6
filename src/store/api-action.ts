@@ -178,6 +178,7 @@ export const postReviewAction = createAsyncThunk<
 
       const { data: reviews } = await api.get<Reviews>(`${APIRoute.Comments}/${offerId}`);
       dispatch(loadReviews(reviews));
+
     } catch (error) {
       dispatch(setError('Не удалось отправить отзыв'));
       throw error;
