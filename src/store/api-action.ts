@@ -19,7 +19,7 @@ export const clearErrorAction = createAsyncThunk(
 );
 
 export const fetchOfferAction = createAsyncThunk<
-  Offer,
+  void,
   string,
   {
     dispatch: AppDispatch;
@@ -32,13 +32,7 @@ export const fetchOfferAction = createAsyncThunk<
     dispatch(setOfferDataLoadingStatus(true));
     try {
       const response = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
-      console.log('✅ API response:', response.data);
-
-      // Диспатчим действие
       dispatch(loadOffer(response.data));
-
-      // Добавьте принудительное обновление через return для createAsyncThunk
-      return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 404) {
         dispatch(redirectToErrorPage());

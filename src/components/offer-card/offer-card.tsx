@@ -6,8 +6,6 @@ import { getRatingWidth } from '../../utils/getRatingWidth';
 import { StatusMark } from '../../ui/status-mark/status-mark';
 import cn from 'classnames';
 import { Button } from '../../ui/button/button';
-import { useAppDispatch } from '../../hooks';
-import { fetchOfferAction } from '../../store/api-action';
 
 type OfferCardProps = {
   offer: Offer | OfferNearby;
