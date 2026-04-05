@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from './types';
-import { AxiosInstance } from 'axios';
-import { Offer, Offers } from '../mocks/types';
+import axios, { AxiosInstance } from 'axios';
+import { Offer, OfferNearbyList, Offers } from '../mocks/types';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const/const';
-import { loadOffers, requireAuthorization, setEmail, setError, setOffersDataLoadingStatus } from './action';
+import { loadNearbyOffers, loadOffer, loadOffers, redirectToErrorPage, requireAuthorization, setEmail, setError, setOfferDataLoadingStatus, setOffersDataLoadingStatus } from './action';
 import { deleteToken, setToken } from '../services/token';
 import { AuthData, UserData } from '../types';
 import { store } from '.';
@@ -28,9 +28,27 @@ export const fetchOfferAction = createAsyncThunk<
   }
 >(
   'data/fetchOffer',
-  async (offerId, { extra: api }) => {
-    const { data } = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
-    return data;
+  async (offerId, { dispatch, extra: api }) => {
+    dispatch(setOfferDataLoadingStatus(true));
+    try {
+      const response = await api.get<Offer>(`${APIRoute.Offers}/${offerId}`);
+      console.log('✅ API response:', response.data);
+
+      // Диспатчим действие
+      dispatch(loadOffer(response.data));
+
+      // Добавьте принудительное обновление через return для createAsyncThunk
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        dispatch(redirectToErrorPage());
+      } else {
+        dispatch(setError('Не удалось загрузить данные об отеле'));
+      }
+      throw error;
+    } finally {
+      dispatch(setOfferDataLoadingStatus(false));
+    }
   }
 );
 
@@ -46,9 +64,30 @@ export const fetchOffersAction = createAsyncThunk<
   'data/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
     dispatch(setOffersDataLoadingStatus(true));
-    const { data } = await api.get<Offers>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(loadOffers(data));
+    try {
+      const { data } = await api.get<Offers>(APIRoute.Offers);
+      dispatch(loadOffers(data));
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 404) {
+        dispatch(redirectToErrorPage());
+      } else {
+        dispatch(setError('Не удалось загрузить список предложений'));
+      }
+    } finally {
+      dispatch(setOffersDataLoadingStatus(false));
+    }
+  }
+);
+
+export const fetchNearbyOffersAction = createAsyncThunk<
+  void,
+  string,
+  { extra: AxiosInstance }
+>(
+  'offer/fetchNearbyOffers',
+  async (offerId, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferNearbyList>(`${APIRoute.Offers}/${offerId}/nearby`);
+    dispatch(loadNearbyOffers(data));
   }
 );
 

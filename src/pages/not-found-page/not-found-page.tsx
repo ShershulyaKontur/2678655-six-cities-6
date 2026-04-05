@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { Heading } from '../../ui/heading/heading';
+import { AppRoute } from '../../const/const';
 
 export function NotFoundPage(): JSX.Element {
   return (
@@ -16,7 +18,8 @@ export function NotFoundPage(): JSX.Element {
                 <p className="cities__status-description">
                   Oops! The page you are looking for doesn&apos;t exist or has been moved.
                 </p>
-                <a
+                <Link
+                  to={AppRoute.Main}
                   className="locations__item-link"
                   style={{
                     display: 'inline-block',
@@ -30,10 +33,10 @@ export function NotFoundPage(): JSX.Element {
                     borderRadius: '4px',
                   }}
                 >
-                  <span style={{ display: 'block' }}>
+                  <span style={{ display: 'block' }} >
                     Go to main page
                   </span>
-                </a>
+                </Link>
               </div>
             </section>
           </div>

@@ -4,7 +4,7 @@ import { OffersList } from '../../components/offers-list/offers-list';
 import { Offer } from '../../mocks/types';
 import { LocationsList } from '../../components/locations-list/locations-list';
 import { Heading } from '../../ui/heading/heading';
-import { getCity, getLoadingStatus, getOffers, getSortType } from '../../store/selectors';
+import { getCity, getOffers, getOffersLoadingStatus, getSortType } from '../../store/selectors';
 import { Sorting } from '../../components/sorting/sorting';
 import { sortOffers } from '../../utils/sort-offers';
 import { useAppSelector } from '../../hooks';
@@ -15,7 +15,7 @@ export function MainPage(): JSX.Element {
   const currentCity = useAppSelector(getCity);
   const sortType = useAppSelector(getSortType);
   const offers = useAppSelector(getOffers);
-  const isLoading = useAppSelector(getLoadingStatus);
+  const isLoading = useAppSelector(getOffersLoadingStatus);
 
   const offersByCity = offers.filter((offer) => offer.city.name === currentCity);
   const cityOffersCount = offersByCity.length;
@@ -25,6 +25,7 @@ export function MainPage(): JSX.Element {
   if (isLoading) {
     return <Spinner />;
   }
+
 
   return (
     <div className="page page--gray page--main">

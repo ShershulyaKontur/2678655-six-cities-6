@@ -23,7 +23,6 @@ export function OfferCard({
   variant = 'cities'
 }: OfferCardProps): JSX.Element {
   const { id, title, type, price, isPremium, isFavorite, rating, previewImage } = offer;
-  const dispatch = useAppDispatch();
 
   const cardClassName = variant === 'cities'
     ? 'cities__card place-card'
@@ -32,10 +31,6 @@ export function OfferCard({
   const imageWrapperClassName = variant === 'cities'
     ? 'cities__image-wrapper place-card__image-wrapper'
     : 'near-places__image-wrapper place-card__image-wrapper';
-
-  const handleCardClick = (): void => {
-    void dispatch(fetchOfferAction(id));
-  };
 
   return (
     <article
@@ -48,7 +43,6 @@ export function OfferCard({
       <div className={imageWrapperClassName}>
         <Link
           to={generatePath(AppRoute.Offer, { offerId: id })}
-          onClick={handleCardClick}
         >
           <img
             className="place-card__image"

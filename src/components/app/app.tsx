@@ -42,6 +42,7 @@ export function App(): JSX.Element {
             element={<LoginPage />}
           />
         </Route>
+
       </Routes>
     </BrowserRouter>);
 }

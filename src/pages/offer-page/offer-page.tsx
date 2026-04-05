@@ -5,29 +5,44 @@ import { ReviewForm } from '../../components/review-form/review-form';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { Heading } from '../../ui/heading/heading';
 import { mockReviewsList } from '../../mocks/mockReviewsList';
-import { mockOffersNearbyList } from '../../mocks/mockOffersNearbyList';
 import { Map } from '../../components/map/map';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { getRatingWidth } from '../../utils/getRatingWidth';
-import { useSelector } from 'react-redux';
-import { getOffers } from '../../store/selectors';
+import { getError, getNearbyOffers, getOffer, getOfferLoadingStatus } from '../../store/selectors';
 import { OfferGalary } from '../../ui/offer-galllery/offer-gallery';
 import { StatusMark } from '../../ui/status-mark/status-mark';
 import { InsideList } from '../../ui/inside-list/inside-list';
 import { Button } from '../../ui/button/button';
 import { OfferFeatures } from '../../ui/offer-features/offer-features';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-action';
+import { Spinner } from '../../ui/spinner/spinner';
 import cn from 'classnames';
 
 
 export function OfferPage(): JSX.Element {
   const {offerId} = useParams();
   const [chosenId, setChosenId] = useState<Offer['id'] | null>(null);
-  const offers = useSelector(getOffers);
-  const currentOffer = offers.find((offer) => offer.id === offerId);
+  const dispatch = useAppDispatch();
+  const currentOffer = useAppSelector(getOffer);
+  const nearbyList = useAppSelector(getNearbyOffers)
+  const isLoading = useAppSelector(getOfferLoadingStatus);
+  const error = useAppSelector(getError)
 
-  if (!currentOffer) {
-    return <Navigate to={AppRoute.Error} />;
+  useEffect(() => {
+    if (offerId) {
+      void dispatch(fetchOfferAction(offerId));
+      void dispatch(fetchNearbyOffersAction(offerId));
+    }
+  }, [offerId, dispatch]);
+
+  if (error === 'offer-not-found/404') {
+    return <Navigate to={AppRoute.Error} replace />;
+  }
+
+  if (isLoading || !currentOffer) {
+    return <Spinner />;
   }
 
   return (
@@ -114,13 +129,19 @@ export function OfferPage(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map variant='offer' chosenId={chosenId} offers={mockOffersNearbyList} city={mockOffersNearbyList[0].city}/>
+          {nearbyList.length > 0 && (
+            <Map
+              variant="offer"
+              chosenId={chosenId}
+              offers={nearbyList}
+              city={nearbyList[0].city}
+            />
+          )}
         </section>
-
         <div className="container">
           <section className="near-places places">
             <Heading tag="h2" className="near-places__title">Other places in the neighbourhood</Heading>
-            <OffersList variant='nearPlaces' offers={mockOffersNearbyList} setChosenId={setChosenId} />
+            <OffersList variant='nearPlaces' offers={nearbyList} setChosenId={setChosenId} />
           </section>
         </div>
       </main>
