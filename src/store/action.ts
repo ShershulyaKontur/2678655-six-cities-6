@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offer, OfferNearbyList, Offers } from '../mocks/types';
+import { Offer, OfferNearbyList, Offers, Reviews } from '../mocks/types';
 import { SortType } from '../components/sorting/types';
 import { AuthorizationStatus } from '../const/const';
 
@@ -15,6 +15,10 @@ export const setOfferDataLoadingStatus = createAction<boolean>('data/setOfferDat
 export const redirectToErrorPage = createAction('app/redirectToErrorPage');
 
 export const loadNearbyOffers = createAction<OfferNearbyList>('data/loadNearbyOffers');
+
+export const loadReviews = createAction<Reviews>('data/loadReviews');
+export const setReviewsDataLoadingStatus = createAction<boolean>('data/setReviewsDataLoadingStatus');
+
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const setEmail = createAction<string>('user/setEmail');

@@ -1,22 +1,21 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { Offer } from '../../mocks/types';
-import { AppRoute } from '../../const/const';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { ReviewForm } from '../../components/review-form/review-form';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { Heading } from '../../ui/heading/heading';
-import { mockReviewsList } from '../../mocks/mockReviewsList';
 import { Map } from '../../components/map/map';
 import { useEffect, useState } from 'react';
 import { OffersList } from '../../components/offers-list/offers-list';
 import { getRatingWidth } from '../../utils/getRatingWidth';
-import { getError, getNearbyOffers, getOffer, getOfferLoadingStatus } from '../../store/selectors';
+import { getAuthStatus, getError, getNearbyOffers, getOffer, getOfferLoadingStatus, getReviews } from '../../store/selectors';
 import { OfferGalary } from '../../ui/offer-galllery/offer-gallery';
 import { StatusMark } from '../../ui/status-mark/status-mark';
 import { InsideList } from '../../ui/inside-list/inside-list';
 import { Button } from '../../ui/button/button';
 import { OfferFeatures } from '../../ui/offer-features/offer-features';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-action';
+import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-action';
 import { Spinner } from '../../ui/spinner/spinner';
 import cn from 'classnames';
 
@@ -25,15 +24,18 @@ export function OfferPage(): JSX.Element {
   const {offerId} = useParams();
   const [chosenId, setChosenId] = useState<Offer['id'] | null>(null);
   const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(getAuthStatus);
   const currentOffer = useAppSelector(getOffer);
-  const nearbyList = useAppSelector(getNearbyOffers)
+  const nearbyList = useAppSelector(getNearbyOffers);
+  const reviews = useAppSelector(getReviews).slice(0, 10);
   const isLoading = useAppSelector(getOfferLoadingStatus);
-  const error = useAppSelector(getError)
+  const error = useAppSelector(getError);
 
   useEffect(() => {
     if (offerId) {
       void dispatch(fetchOfferAction(offerId));
       void dispatch(fetchNearbyOffersAction(offerId));
+      void dispatch(fetchReviewsAction(offerId));
     }
   }, [offerId, dispatch]);
 
@@ -122,10 +124,12 @@ export function OfferPage(): JSX.Element {
 
               <section className="offer__reviews reviews">
                 <Heading tag="h2" className="reviews__title">
-                  Reviews · <span className="reviews__amount">{mockReviewsList.length}</span>
+                  Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </Heading>
-                <ReviewsList reviews={mockReviewsList}/>
-                <ReviewForm />
+                <ReviewsList reviews={reviews}/>
+                {authStatus === AuthorizationStatus.Auth && (
+                  offerId ? <ReviewForm offerId={offerId} /> : null
+                )}
               </section>
             </div>
           </div>

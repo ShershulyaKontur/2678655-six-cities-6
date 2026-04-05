@@ -3,13 +3,14 @@ export enum AppRoute {
   Favorites = '/favorites',
   Offer = '/offer/:offerId',
   Main = '/',
-  Error = '*'
+  Error = '*',
 }
 
 export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Comments = '/comments'
 }
 
 export enum AuthorizationStatus {

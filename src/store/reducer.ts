@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { loadNearbyOffers, loadOffer, loadOffers, redirectToErrorPage, requireAuthorization, setCity, setEmail, setError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, setSortType } from './action';
+import { loadNearbyOffers, loadOffer, loadOffers, loadReviews, redirectToErrorPage, requireAuthorization, setCity, setEmail, setError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, setReviewsDataLoadingStatus, setSortType } from './action';
 import { SortType } from '../components/sorting/types';
-import { Offer, OfferNearbyList, Offers } from '../mocks/types';
+import { Offer, OfferNearbyList, Offers, Reviews } from '../mocks/types';
 import { AuthorizationStatus } from '../const/const';
 import { AuthStatus } from '../types';
 
@@ -10,20 +10,24 @@ type initialStateProps ={
   sortType: SortType;
   offers: Offers;
   offer: Offer | null;
-  nearbyOffers: OfferNearbyList,
+  reviews: Reviews;
+  nearbyOffers: OfferNearbyList;
   isOffersDataLoading: boolean;
   isOfferDataLoading: boolean;
+  isReviewsDataLoading: boolean;
   authorizationStatus: AuthStatus;
   email: string;
   error: string | null;
-}
+};
 
 const initialState : initialStateProps = {
   city: 'Paris',
   sortType: 'popular',
   offers: [],
   offer: null,
+  reviews:[],
   nearbyOffers: [],
+  isReviewsDataLoading: false,
   isOffersDataLoading: false,
   isOfferDataLoading: false,
   error: null,
@@ -48,11 +52,17 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(loadNearbyOffers,(state, action) => {
       state.nearbyOffers = action.payload;
     })
+    .addCase(loadReviews,(state, action) => {
+      state.reviews = action.payload;
+    })
     .addCase(setOffersDataLoadingStatus,(state, action) => {
       state.isOffersDataLoading = action.payload;
     })
     .addCase(setOfferDataLoadingStatus,(state, action) => {
       state.isOfferDataLoading = action.payload;
+    })
+    .addCase(setReviewsDataLoadingStatus,(state, action) => {
+      state.isReviewsDataLoading = action.payload;
     })
     .addCase(redirectToErrorPage, (state) => {
       state.error = 'offer-not-found/404';
