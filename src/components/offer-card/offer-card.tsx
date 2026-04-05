@@ -6,6 +6,8 @@ import { getRatingWidth } from '../../utils/getRatingWidth';
 import { StatusMark } from '../../ui/status-mark/status-mark';
 import cn from 'classnames';
 import { Button } from '../../ui/button/button';
+import { useAppDispatch } from '../../hooks';
+import { fetchOfferAction } from '../../store/api-action';
 
 type OfferCardProps = {
   offer: Offer | OfferNearby;
@@ -21,6 +23,7 @@ export function OfferCard({
   variant = 'cities'
 }: OfferCardProps): JSX.Element {
   const { id, title, type, price, isPremium, isFavorite, rating, previewImage } = offer;
+  const dispatch = useAppDispatch();
 
   const cardClassName = variant === 'cities'
     ? 'cities__card place-card'
@@ -29,6 +32,10 @@ export function OfferCard({
   const imageWrapperClassName = variant === 'cities'
     ? 'cities__image-wrapper place-card__image-wrapper'
     : 'near-places__image-wrapper place-card__image-wrapper';
+
+  const handleCardClick = (): void => {
+    void dispatch(fetchOfferAction(id));
+  };
 
   return (
     <article
@@ -39,7 +46,10 @@ export function OfferCard({
       {isPremium && <StatusMark variant='place-card' isPremium/>}
 
       <div className={imageWrapperClassName}>
-        <Link to={generatePath(AppRoute.Offer, { offerId: id })}>
+        <Link
+          to={generatePath(AppRoute.Offer, { offerId: id })}
+          onClick={handleCardClick}
+        >
           <img
             className="place-card__image"
             src={previewImage}
