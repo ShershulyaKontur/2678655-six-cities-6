@@ -1,6 +1,5 @@
-import { Token } from '../types';
-
-const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+import { Token } from '../app/types';
+import { AUTH_TOKEN_KEY_NAME } from '../shared/const/const';
 
 export const getToken = (): Token => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);

@@ -1,0 +1,98 @@
+C:\Users\user\Desktop\контур\2678655-six-cities-6\src\
+|---index.tsx
+|---setupTests.ts
+|---types.ts
+|---vite-env.d.ts
+|---components
+|   |---app
+|   |   `---app.tsx
+|   |---favorite-card
+|   |   `---favorite-card.tsx
+|   |---layouts
+|   |   |---auth-layout
+|   |   |   `---auth-layout.tsx
+|   |   `---main-layout
+|   |       `---main-layout.tsx
+|   |---locations-list
+|   |   `---locations-list.tsx
+|   |---map
+|   |   `---map.tsx
+|   |---offer-card
+|   |   `---offer-card.tsx
+|   |---offers-list
+|   |   `---offers-list.tsx
+|   |---private-route
+|   |   `---private-route.tsx
+|   |---review-form
+|   |   `---review-form.tsx
+|   |---reviews-item
+|   |   `---reviews-item.tsx
+|   |---reviews-list
+|   |   `---reviews-list.tsx
+|   `---sorting
+|       |---sorting.tsx
+|       `---types.ts
+|---const
+|   `---const.ts
+|---hooks
+|   |---index.ts
+|   `---useMap.tsx
+|---mocks
+|   |---mockOffersNearbyList.ts
+|   |---mockReviewsList.ts
+|   `---types.ts
+|---pages
+|   |---favorites-page
+|   |   `---favorites-page.tsx
+|   |---login-page
+|   |   `---login-page.tsx
+|   |---main-page
+|   |   `---main-page.tsx
+|   |---not-found-page
+|   |   `---not-found-page.tsx
+|   `---offer-page
+|       `---offer-page.tsx
+|---services
+|   |---api.ts
+|   |---process-error-handle.ts
+|   `---token.ts
+|---store
+|   |---action.ts
+|   |---api-action.ts
+|   |---index.ts
+|   |---reducer.ts
+|   |---selectors.ts
+|   `---types.ts
+|---ui
+|   |---button
+|   |   `---button.tsx
+|   |---error-message
+|   |   `---error-message.tsx
+|   |---favorites-empty
+|   |   `---favorites-empty.tsx
+|   |---favorites-location
+|   |   `---favorites-location.tsx
+|   |---footer
+|   |   `---footer.tsx
+|   |---header
+|   |   `---header.tsx
+|   |---heading
+|   |   `---heading.tsx
+|   |---inside-list
+|   |   `---inside-list.tsx
+|   |---logo
+|   |   `---logo.tsx
+|   |---offer-features
+|   |   `---offer-features.tsx
+|   |---offer-galllery
+|   |   `---offer-gallery.tsx
+|   |---profile-nav
+|   |   `---profile-nav.tsx
+|   |---spinner
+|   |   `---spinner.tsx
+|   `---status-mark
+|       `---status-mark.tsx
+`---utils
+    |---formatDate.ts
+    |---getRatingWidth.ts
+    `---sort-offers.ts

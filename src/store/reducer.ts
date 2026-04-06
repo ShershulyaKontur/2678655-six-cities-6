@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { loadNearbyOffers, loadOffer, loadOffers, loadReviews, redirectToErrorPage, requireAuthorization, setCity, setEmail, setError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, setReviewsDataLoadingStatus, setSortType } from './action';
-import { SortType } from '../components/sorting/types';
-import { Offer, OfferNearbyList, Offers, Reviews } from '../mocks/types';
-import { AuthorizationStatus } from '../const/const';
-import { AuthStatus } from '../types';
+import { SortType } from '../features/offers/types';
+import { Offer, OfferNearbyList, Offers, Reviews } from '../shared/types';
+import { AuthStatus } from '../app/types';
+import { AuthorizationStatus } from '../shared/const';
 
-type initialStateProps ={
+type initialStateProps = {
   city: string;
   sortType: SortType;
   offers: Offers;
@@ -20,7 +20,7 @@ type initialStateProps ={
   error: string | null;
 };
 
-const initialState : initialStateProps = {
+const initialState: initialStateProps = {
   city: 'Paris',
   sortType: 'popular',
   offers: [],
