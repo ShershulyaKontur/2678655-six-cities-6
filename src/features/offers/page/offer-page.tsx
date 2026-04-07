@@ -4,7 +4,6 @@ import { Offer } from '../../../shared/types';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks';
 import { getAuthStatus, getError, getNearbyOffers, getOffer, getOfferLoadingStatus, getReviews } from '../../../store/selectors';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../../store/api-action';
-import { AppRoute, AuthorizationStatus } from '../../../shared/const/const';
 import { Button, Heading, InsideList, OfferFeatures, OfferGalary, Spinner, StatusMark } from '../../../shared/ui';
 import { getRatingWidth } from '../../../shared/utils';
 import { ReviewForm } from '../../reviews/components/review-form';
@@ -12,6 +11,7 @@ import { OffersList } from '../components/offers-list';
 import { ReviewList } from '../../reviews';
 import cn from 'classnames';
 import { Map } from '../../map';
+import { AppRoute, AuthorizationStatus } from '../../../const';
 
 export function OfferPage(): JSX.Element {
   const {offerId} = useParams();

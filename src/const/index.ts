@@ -12,4 +12,4 @@ export {
   URL_MARKER_DEFAULT,
   URL_MARKER_CURRENT,
   DEFAULT_LOCATIONS,
-} from './const';
+} from '../const/const';

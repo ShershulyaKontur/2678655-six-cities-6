@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../shared/const';
+import { AppRoute } from '../const';
 import { AuthLayout, MainLayout } from '../shared/layouts';
 import { MainPage, OfferPage } from '../features/offers';
 import { LoginPage, PrivateRoute } from '../features/auth';

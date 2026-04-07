@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { AppRoute, AuthorizationStatus } from '../../../shared/const/const';
 import { loginAction } from '../../../store/api-action';
 import { getAuthStatus } from '../../../store/selectors';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks';
 import { Button, Heading } from '../../../shared/ui';
+import { AppRoute, AuthorizationStatus } from '../../../const';
 
 export function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();

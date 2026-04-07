@@ -1,4 +1,4 @@
-import { DEFAULT_LOCATIONS } from '../../../shared/const/const';
+import { DEFAULT_LOCATIONS } from '../../../const';
 import { useAppDispatch } from '../../../shared/hooks';
 import { setCity } from '../../../store/action';
 import cn from 'classnames';

@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { SortType } from '../../features/offers/types';
+import { SortType } from '../features/offers/types';
 
 export enum AppRoute {
   Login = '/login',

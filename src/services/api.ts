@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestCo
 import { getToken } from './token';
 import { processErrorHandle } from './process-error-handle';
 import { DetailMessage } from '../shared/types';
-import { StatusCodeMapping, TIMEOUT } from '../shared/const/const';
+import { StatusCodeMapping, TIMEOUT } from '../const';
 
 const URL = import.meta.env.VITE_API_URL;
 

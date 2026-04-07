@@ -21,4 +21,5 @@ export const getReviewsLoadingStatus = (state: State) => state.isReviewsDataLoad
 export const getError = (state: State) => state.error;
 
 export const getAuthStatus = (state: State) => state.authorizationStatus;
+
 export const getEmail = (state: State) => state.email;

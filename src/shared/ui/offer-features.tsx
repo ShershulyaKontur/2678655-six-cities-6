@@ -1,4 +1,4 @@
-import { Offer } from '../../mocks/types';
+import { Offer } from '../types';
 
 type OfferFeaturesProps = {
   type: Offer['type'];

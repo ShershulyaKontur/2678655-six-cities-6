@@ -1,9 +1,9 @@
 import { Link, generatePath } from 'react-router-dom';
 import { Offer, OfferNearby } from '../../../shared/types';
 import { Button, Heading, StatusMark } from '../../../shared/ui';
-import { AppRoute } from '../../../shared/const/const';
 import { getRatingWidth } from '../../../shared/utils';
 import cn from 'classnames';
+import { AppRoute } from '../../../const';
 
 type OfferCardProps = {
   offer: Offer | OfferNearby;

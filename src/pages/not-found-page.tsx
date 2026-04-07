@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Heading } from '../shared/ui/heading';
-import { AppRoute } from '../shared/const/const';
+import { AppRoute } from '../const';
 
 export function NotFoundPage(): JSX.Element {
   return (

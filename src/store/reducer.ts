@@ -3,7 +3,7 @@ import { loadNearbyOffers, loadOffer, loadOffers, loadReviews, redirectToErrorPa
 import { SortType } from '../features/offers/types';
 import { Offer, OfferNearbyList, Offers, Reviews } from '../shared/types';
 import { AuthStatus } from '../app/types';
-import { AuthorizationStatus } from '../shared/const';
+import { AuthorizationStatus } from '../const';
 
 type initialStateProps = {
   city: string;

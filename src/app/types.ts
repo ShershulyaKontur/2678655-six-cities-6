@@ -1,4 +1,4 @@
-import { AuthorizationStatus } from '../shared/const/const';
+import { AuthorizationStatus } from '../const';
 
 export type Token = string;
 

@@ -1,9 +1,9 @@
 import { generatePath, Link } from 'react-router-dom';
 import { Button, Heading, StatusMark } from '../../../shared/ui';
 import { Offer } from '../../../shared/types';
-import { AppRoute } from '../../../shared/const/const';
 import { getRatingWidth } from '../../../shared/utils';
 import cn from 'classnames';
+import { AppRoute } from '../../../const';
 
 type FavoriteCardProps = {
   offer: Offer;

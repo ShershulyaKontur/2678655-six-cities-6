@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../shared/const/const';
 import { SortType } from '../features/offers/types';
 import { Offer, OfferNearbyList, Offers, Reviews } from '../shared/types';
+import { AuthorizationStatus } from '../const';
 
 export const setCity = createAction<string>('city/setCity');
 export const setSortType = createAction<SortType>('sort/setSortType');

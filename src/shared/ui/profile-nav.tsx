@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../const/const';
 import { logoutAction } from '../../store/api-action';
 import { getEmail } from '../../store/selectors';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { AuthStatus } from '../../app/types';
+import { AppRoute, AuthorizationStatus } from '../../const';
 
 export function ProfileNav({ authorizationStatus }: { authorizationStatus: AuthStatus }): JSX.Element {
   const dispatch = useAppDispatch();

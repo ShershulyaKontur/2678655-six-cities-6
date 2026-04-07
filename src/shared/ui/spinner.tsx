@@ -1,4 +1,3 @@
-
 export const Spinner = () => {
   const spinnerStyle = {
     display: 'inline-block',

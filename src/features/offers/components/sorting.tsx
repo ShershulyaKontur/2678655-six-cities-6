@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { getSortType } from '../../../store/selectors';
 import { setSortType } from '../../../store/action';
 import { useAppDispatch } from '../../../shared/hooks';
-import { SORT_OPTIONS } from '../../../shared/const/const';
 import cn from 'classnames';
+import { SORT_OPTIONS } from '../../../const';
 
 export function Sorting(): JSX.Element {
   const dispatch = useAppDispatch();
