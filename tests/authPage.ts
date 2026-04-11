@@ -9,6 +9,7 @@ export class AuthPage {
 
   constructor(page: Page, url = 'http://localhost:5173/login') {
     this.url = url;
+
     this.page = page;
     this.usernameInput = page.locator('input[name="email"]');
     this.passwordInput = page.locator('input[name="password"]');
