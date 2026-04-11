@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { AuthPage } from './authPage';
-import { MainPage } from './mainPage';
+import { AuthPage } from '../src/features/auth/page/authPage';
+import { MainPage } from '../src/features/offers/page/mainPage';
 
 
 test('Успешный логин', async ({ page }) => {
