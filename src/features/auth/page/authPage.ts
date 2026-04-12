@@ -18,6 +18,7 @@ export class AuthPage {
   public async load(): Promise<void> {
     await this.page.goto(this.url);
   }
+
   async login(user: string, pass: string) {
     await this.load();
     await this.usernameInput.fill(user);
